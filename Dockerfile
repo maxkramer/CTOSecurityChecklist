@@ -1,6 +1,6 @@
 FROM node:10-slim
-RUN mkdir /build && cd /build && apt-get update && apt-get install -y python2.7 python-pip ca-certificates curl
-RUN which python2 && which python2
-COPY . .
-RUN npm install && npm run serve
-EXPOSE 3000
+RUN mkdir /build && cd /build && apt-get update -yqq && apt-get install -yqq --no-install-recommends python2.7 python-pip ca-certificates curl build-essential
+ADD docs gulpfile.js package.json . /
+RUN npm install
+EXPOSE 3000:3000 3001:3001
+ENTRYPOINT npm run serve
